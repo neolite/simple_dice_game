@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Orbitron");
 #app {
   padding-top: 40px;
   text-align: center;
@@ -20,4 +21,22 @@
 #app .card p {
   min-width: 140px;
   margin: 0;
+}
+
+#app #scores-panel {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#app .score-block {
+  min-height: 60px;
+}
+
+#app .display-score {
+  font-family: "Orbitron", sans-serif;
+  font-size: 42;
+}
+
+#app input {
+  max-width: 80;
 }
