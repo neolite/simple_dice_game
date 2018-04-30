@@ -3,30 +3,28 @@
 
 <head>
   <meta charset="utf-8">
-
-  <!-- подключаем стили Mocha, для отображения результатов -->
+  <!-- include test frameworks -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css">
-  <!-- подключаем библиотеку Mocha -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.js"></script>
-  <!-- настраиваем Mocha: предстоит BDD-тестирование -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
   <script>
     mocha.setup('bdd');
   </script>
-  <!-- подключаем chai -->
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.0.0/chai.js"></script>
-  <!-- в chai есть много всего, выносим assert в глобальную область -->
+  <!-- assert & expect to global -->
   <script>
     var assert = chai.assert;
+    var expect = chai.expect;
   </script>
 
 </head>
 
 <body>
 
-  <!-- в элементе с id="mocha" будут результаты тестов -->
   <div id="mocha"></div>
 
-  <!-- запустить тесты! -->
+  <!-- run tests-->
   <script type="module" src="./tests/main.js"></script>
 
 </body>

@@ -10,8 +10,8 @@ export default {
 	<div >
 		<div class="row">
 			<div class="col">
-				<h3 class="col"><span>Your balance: </span>{{ balance }}</h3>
-				<button class="btn btn-secondary btn-sm" :disabled="balance>0" @click="resetBalance">Earn credits</button>
+				<h3 class="col"><span>Your balance: </span>{{ playerBalance }}</h3>
+				<button class="btn btn-secondary btn-sm" :disabled="playerBalance>0" @click="resetBalance">Earn credits</button>
 			</div>
 		</div>
 		<div class="row" id="scores-panel">
@@ -63,18 +63,19 @@ export default {
   },
   watch: {
     betAmount: function(val) {
+      // if bet amount dont be a large than player balance
       if (val >= this.playerBalance) {
         this.betAmount = this.playerBalance;
       }
     },
     playerNumber: function(val) {
-      console.log({ val });
-
       if (val > 0) {
+        // calc chances to win player, returns playerHiBetChance, playerLowBetChance, hiBetMultiplier, lowBetMultiplier
         this.getChanceToWin = getChanceToWin(this.playerNumber);
       }
     },
     balance: val => {
+      // every balance changing save to local storage
       localStorage.setItem("playerBalance", val);
     }
   },
@@ -82,7 +83,7 @@ export default {
     return {
       playerBalance: 0,
       playerNumber: 50,
-      betAmount: 0,
+      betAmount: 10,
       gameNumber: null,
       numberHash: "",
       numberToShow: null,
@@ -96,20 +97,21 @@ export default {
     };
   },
   created() {
-    this.balance = localStorage.getItem("userBalance") || 100;
+    this.playerBalance = localStorage.getItem("playerBalance") || 100;
     this.initRound();
   },
   methods: {
+    // if bet low & player number less than game number, player wins
     bet(type) {
       if (
         (type === "hi" && this.gameNumber >= this.playerNumber) ||
         (type === "low" && this.gameNumber <= this.playerNumber)
       ) {
         this.status = "WIN";
-        this.balance = +this.playerBalance + parseInt(this.betAmount);
+        this.playerBalance = +this.playerBalance + parseInt(this.betAmount);
       } else {
         this.status = "LOSE";
-        this.balance = +this.playerBalance - parseInt(this.betAmount);
+        this.playerBalance = +this.playerBalance - parseInt(this.betAmount);
       }
       this.numberToShow = this.gameNumber;
       this.playerNumber = 50;
@@ -121,7 +123,7 @@ export default {
       this.numberHash = sha256(this.gameNumber);
     },
     resetBalance() {
-      this.balance = 100;
+      this.playerBalance = 100;
     }
   }
 };
