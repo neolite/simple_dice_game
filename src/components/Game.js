@@ -15,7 +15,7 @@ export default {
 			</div>
 		</div>
 		<div class="row" id="scores-panel">
-			<scores :hash="numberHash" :num="showedNumber" :status="status"/>
+			<scores :hash="numberHash" :num="numberToShow" :status="status"/>
 		</div>
 		<div class="row">
 			<div class="input-group col mb-3">
@@ -23,17 +23,16 @@ export default {
 					<span class="input-group-text" id="inputGroup-sizing-default">Bet amount</span>
 				</div>
 				<input v-model="betAmount" type="number" min="1" max="100" step="1" class="form-control text-right" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-
+	
 				<div class="input-group-prepend" style="margin-left: auto">
 					<span class="input-group-text" id="inputGroup-sizing-default">Number</span>
 				</div>
 				<input v-model="playerNumber" type="number" min="1" max="100" step="1" class="form-control text-right" aria-label="Default" aria-describedby="inputGroup-sizing-default">
 			</div>
-
 		</div>
 		<div class="row">
 			<div class="input-group col mb-3">
-				<game-btn 
+				<game-button
 					class="col"  
 					text="Bet Low" 
 					bet-type="low" 
@@ -43,7 +42,7 @@ export default {
 					:payout="getChanceToWin.lowBetMultiplier"
 					@handle-click="bet"
 					/>  
-				<game-btn 
+				<game-button 
 					class="col" 
 					text="Bet Hi" 
 					bet-type="hi"
@@ -59,13 +58,13 @@ export default {
 	
   `,
   components: {
-    "game-btn": gameButton,
-    scores: Scores
+    gameButton,
+    Scores
   },
   watch: {
     betAmount: function(val) {
-      if (val >= this.balance) {
-        this.betAmount = this.balance;
+      if (val >= this.playerBalance) {
+        this.betAmount = this.playerBalance;
       }
     },
     playerNumber: function(val) {
@@ -76,17 +75,17 @@ export default {
       }
     },
     balance: val => {
-      localStorage.setItem("userBalance", val);
+      localStorage.setItem("playerBalance", val);
     }
   },
   data: () => {
     return {
-      balance: 0,
+      playerBalance: 0,
       playerNumber: 50,
       betAmount: 0,
       gameNumber: null,
       numberHash: "",
-      showedNumber: null,
+      numberToShow: null,
       status: "",
       getChanceToWin: {
         playerHiBetChance: 0,
@@ -107,12 +106,12 @@ export default {
         (type === "low" && this.gameNumber <= this.playerNumber)
       ) {
         this.status = "WIN";
-        this.balance = +this.balance + parseInt(this.betAmount);
+        this.balance = +this.playerBalance + parseInt(this.betAmount);
       } else {
         this.status = "LOSE";
-        this.balance = +this.balance - parseInt(this.betAmount);
+        this.balance = +this.playerBalance - parseInt(this.betAmount);
       }
-      this.showedNumber = this.gameNumber;
+      this.numberToShow = this.gameNumber;
       this.playerNumber = 50;
       this.betAmount = 0;
       this.initRound();
@@ -126,4 +125,3 @@ export default {
     }
   }
 };
-//  playerHiBetChance, playerLowBetChance, hiBetMultiplier, lowBetMultiplier;
