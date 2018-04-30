@@ -1,15 +1,15 @@
 // import Vue from './vue.esm.browser.js'
-import dummy from "./components/dummy.js";
+import game from "./components/Game.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   new Vue({
-    template: "<div>{{ hi }}<dummy/></div>",
+    template: "<div id='app' class='col'>{{ hi }}<game/></div>",
     el: "#app",
     components: {
-      dummy
+      game
     },
     data: {
-      hi: "Hello from modules"
+      hi: "Simple Dice game"
     }
   });
 });

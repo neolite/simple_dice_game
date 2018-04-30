@@ -36,6 +36,7 @@ class gameCore {
   canGetFreeCredits() {
     return this.playerBalance === 0;
   }
+
   play(playerNumber, playerBet) {}
 }
 
