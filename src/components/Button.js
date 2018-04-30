@@ -1,13 +1,13 @@
 export default {
   name: "button",
-  template: `<div class="card" >
+  template: `<div class="card text-left">
               <div class="card-body">
                <a href="#" class="btn btn-primary btn-lg btn-block">{{text}}</a>
                 <span>{{title}}</span>
-                <span v-if="betType==='hi'">number>={{playerBet}}</span>
-                <span v-if="betType==='low'">number<={{playerBet}}</span>
-                <span>Chance: {{chance}}%</span>
-                <span>Payout: {{payout}}x</span>
+                <p v-if="betType==='hi'"><b>number>=</b>{{playerBet}}</p>
+                <p v-if="betType==='low'"><b>number<=</b>{{playerBet}}</p>
+                <p><b>Chance:</b> {{chance}}%</p>
+                <p><b>Payout:</b> {{payout}}x</p>
               </div>
             </div>`,
   props: [

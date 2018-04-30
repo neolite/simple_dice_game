@@ -3,7 +3,7 @@ import game from "./components/Game.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   new Vue({
-    template: "<div id='app' class='col'>{{ hi }}<game/></div>",
+    template: "<div id='app' class='col2'>{{ hi }}<game/></div>",
     el: "#app",
     components: {
       game
